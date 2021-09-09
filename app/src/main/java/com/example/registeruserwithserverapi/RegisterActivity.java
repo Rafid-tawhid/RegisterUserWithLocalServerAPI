@@ -86,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
 
                 RegisterResponse registerResponse=response.body();
+
                 if(response.isSuccessful())
                 {
                     Toast.makeText(RegisterActivity.this, ""+registerResponse.getMessage(), Toast.LENGTH_SHORT).show();

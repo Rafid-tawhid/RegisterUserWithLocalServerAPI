@@ -14,4 +14,11 @@ public interface Api {
             @Field("password") String password
     );
 
+    @FormUrlEncoded
+    @POST("login.php")
+    Call<LoginResponse> login(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
 }
