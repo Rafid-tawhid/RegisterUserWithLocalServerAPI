@@ -74,8 +74,8 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
 
 
-//                updateAcc();
-                sharedPreferenceManager.logOut();
+                updateAcc();
+
             }
         });
 
