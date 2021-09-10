@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText uname,upass,uemail,uphone;
     Button newAccBtn;
     ImageView backBtn,profilePhoto;
+    SharedPreferenceManager sharedPreferenceManager;
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

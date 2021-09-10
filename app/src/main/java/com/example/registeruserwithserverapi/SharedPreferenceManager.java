@@ -2,6 +2,7 @@ package com.example.registeruserwithserverapi;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.registeruserwithserverapi.responses.User;
 
@@ -15,7 +16,7 @@ public class SharedPreferenceManager {
         this.context = context;
     }
 
-    void SaveUser(User user)
+    public void SaveUser(User user)
     {
         sharedPreferences=context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         editor=sharedPreferences.edit();
@@ -24,8 +25,10 @@ public class SharedPreferenceManager {
         editor.putString("email",user.getEmail());
         editor.putBoolean("logged",true);
         editor.apply();
+
+
     }
-     boolean isLoggedIn()
+     public boolean isLoggedIn()
     {
         sharedPreferences=context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("logged",false);
@@ -40,7 +43,7 @@ public class SharedPreferenceManager {
                sharedPreferences.getString("email",null));
 
    }
-   void logOut()
+   public void logOut()
    {
        sharedPreferences=context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
        editor=sharedPreferences.edit();

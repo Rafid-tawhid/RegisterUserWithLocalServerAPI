@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     EditText uname,upass;
     Button loginBtn;
     TextView frgtPass,newAccCreate;
-    SharedPreferenceManager sharedPreferenceManager;
+    public static SharedPreferenceManager sharedPreferenceManager;
+    public static  LoginResponse loginResponse;
 
 
     @Override
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         frgtPass=findViewById(R.id.homeFrgtPass);
         newAccCreate=findViewById(R.id.homeNewAcc);
         sharedPreferenceManager=new SharedPreferenceManager(getApplicationContext());
+
 
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -80,13 +83,16 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse loginResponse=response.body();
+               loginResponse=response.body();
 
                 if(response.isSuccessful())
                 {
                     if (loginResponse.getError().equals("200"))
                     {
+
+
                         sharedPreferenceManager.SaveUser(loginResponse.getUser());
+
                         Intent intent=new Intent(MainActivity.this,HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

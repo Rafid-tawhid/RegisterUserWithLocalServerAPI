@@ -26,4 +26,24 @@ public interface Api {
     @GET("fetchUsers.php")
     Call<FetchUserResponse> fetchAllUsers();
 
+    @FormUrlEncoded
+    @POST("updateUser.php")
+    Call<LoginResponse> updateUserAccount(
+            @Field("id") int userid,
+            @Field("username") String username,
+            @Field("email") String email
+
+    );
+
+    @FormUrlEncoded
+    @POST("updatePass.php")
+    Call<UpdatePassResponse> updateUserPass(
+
+
+            @Field("current") String currentPassword,
+            @Field("email") String email,
+            @Field("new") String newPassword
+
+    );
+
 }
