@@ -15,8 +15,13 @@ import android.widget.Toast;
 import com.example.registeruserwithserverapi.Fragments.DasgboardFragment;
 import com.example.registeruserwithserverapi.Fragments.ProfileFragment;
 import com.example.registeruserwithserverapi.Fragments.UsersFragment;
+import com.example.registeruserwithserverapi.responses.DeleteResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity  {
 
@@ -95,6 +100,39 @@ public class HomeActivity extends AppCompatActivity  {
 
     private void deleteAccount() {
 
+        Call<DeleteResponse> call=RetrofitClient.getInstance().getApi().deleteUserAccount(sharedPreferenceManager.getUser().getId());
+
+        call.enqueue(new Callback<DeleteResponse>() {
+            @Override
+            public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
+
+                DeleteResponse deleteResponse=response.body();
+                if(response.isSuccessful())
+                {
+                    if(deleteResponse.getError().equals("200"))
+                    {
+                        Toast.makeText(HomeActivity.this, ""+deleteResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        logoutUser();
+                    }
+                    else
+                    {
+                        Toast.makeText(HomeActivity.this, ""+deleteResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                else
+                {
+                    Toast.makeText(HomeActivity.this, "Failed Deletation", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteResponse> call, Throwable t) {
+
+                Toast.makeText(HomeActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void logoutUser() {

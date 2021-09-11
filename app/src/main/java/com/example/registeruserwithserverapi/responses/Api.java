@@ -46,4 +46,14 @@ public interface Api {
 
     );
 
+
+    @FormUrlEncoded
+    @POST("deleteUser.php")
+    Call<DeleteResponse> deleteUserAccount(
+
+
+            @Field("id") int userId
+
+    );
+
 }
